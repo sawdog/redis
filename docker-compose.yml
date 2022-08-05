@@ -1,0 +1,19 @@
+version: "3.2"
+networks:
+  traefik:
+services:
+  redis:
+    container_name: redis
+    restart: always
+    image: "redis:7.0.4-alpine"
+    command: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - /opt/redis/redis-data:/var/lib/redis
+      - /opt/redis/etc/redis.conf:/etc/redis/redis.conf
+      #--requirepass p1ttyTh3F00l 
+    environment:
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    networks:
+     - traefik
